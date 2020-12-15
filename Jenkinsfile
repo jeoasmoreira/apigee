@@ -9,6 +9,9 @@ pipeline {
             }
         }
         stage('Test') {
+            when {
+                branch 'development'
+            }
             steps {
                 echo 'Testing..'
                 bat 'dir'
