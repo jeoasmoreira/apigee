@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XMLToJSON async="false" continueOnError="false" enabled="true" name="X2J-XmlToJson">
+    <DisplayName>X2J-XmlToJson</DisplayName>
+    <Properties/>
+    <Options>
+        <StripLevels>1</StripLevels>
+        <RecognizeNull>false</RecognizeNull>
+        <!--
+            <TreatAsArray>
+                <Path>xml/data/schedulingWindows</Path>
+            </TreatAsArray>
+            <TreatAsArray>
+                <Path>xml/data/portabilities</Path>
+            </TreatAsArray>
+        -->    
+    </Options>
+    <OutputVariable>response</OutputVariable>
+    <Source>response</Source>
+</XMLToJSON>

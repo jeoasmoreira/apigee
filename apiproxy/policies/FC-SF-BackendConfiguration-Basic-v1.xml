@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout async="false" continueOnError="false" enabled="true" name="FC-SF-BackendConfiguration-Basic-v1">
+    <DisplayName>FC-SF-BackendConfiguration-Basic-v1</DisplayName>
+    <FaultRules/>
+    <Parameters>
+        <Parameter name="backendconfiguration.targetname">soaEsbMobile</Parameter>
+    </Parameters>
+    <Properties/>
+    <SharedFlowBundle>sf-backendconfiguration-basic-v1</SharedFlowBundle>
+</FlowCallout>

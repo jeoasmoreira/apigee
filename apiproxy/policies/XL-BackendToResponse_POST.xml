@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XSL async="false" continueOnError="false" enabled="true" name="XL-BackendToResponse_POST">
+    <DisplayName>XL-BackendToResponse_POST</DisplayName>
+    <Properties/>
+    <Source>response</Source>
+    <ResourceURL>xsl://XL-BackendToResponse_POST.xsl</ResourceURL>
+    <Parameters ignoreUnresolvedVariables="true">
+        <Parameter name="apiVersion" ref="apiVersion"/>
+        <Parameter name="transaction" ref="transactionId"/>
+    </Parameters>
+</XSL>

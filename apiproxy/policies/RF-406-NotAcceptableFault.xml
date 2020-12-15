@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-406-NotAcceptableFault">
+    <DisplayName>RF-406-NotAcceptableFault</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json" variablePrefix="#" variableSuffix="%">
+                {
+                    "apiVersion": "#apiVersion%",
+                    "transactionId": "#transactionId%",
+                    "error": {
+                        "httpCode": "406",
+                        "errorCode": "API-SUBSCRIBERSADDONS-406",
+                        "message": "Request Not Acceptable",
+                        "detailedMessage": "Requested content type not acceptable.",
+                        "link": {
+                            "href": "https://api.claro.com.br/docs/error_codes.html",
+                            "rel": "related"
+                        }
+                    }
+                }
+            </Payload>
+            <StatusCode>406</StatusCode>
+            <ReasonPhrase>Request Not Acceptable</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

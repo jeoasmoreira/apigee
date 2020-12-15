@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XSL async="false" continueOnError="false" enabled="true" name="XL-TransformToFault">
+    <DisplayName>XL-TransformToFault</DisplayName>
+    <Properties/>
+    <Source>response</Source>
+    <ResourceURL>xsl://XL-TransformToFault.xsl</ResourceURL>
+    <Parameters ignoreUnresolvedVariables="true">
+        <Parameter name="apiVersion" ref="apiVersion"/>
+        <Parameter name="transaction" ref="message.header.x-transactionid"/>
+        <Parameter name="http.response.status" ref="error.status.code"/>
+    </Parameters>
+</XSL>

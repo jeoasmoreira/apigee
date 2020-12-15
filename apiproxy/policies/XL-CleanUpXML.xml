@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XSL async="false" continueOnError="false" enabled="true" name="XL-CleanUpXML">
+    <DisplayName>XL-CleanUpXML</DisplayName>
+    <Source>request</Source>
+    <ResourceURL>xsl://XL-CleanUpXML.xsl</ResourceURL>
+</XSL>

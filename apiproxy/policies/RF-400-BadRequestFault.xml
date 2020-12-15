@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-400-BadRequestFault">
+    <DisplayName>RF-400-BadRequestFault</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json" variablePrefix="#" variableSuffix="%">
+                {
+                    "apiVersion": "#apiVersion%",
+                    "transactionId": "#transactionId%",
+                    "error": {
+                        "httpCode": "400",
+                        "errorCode": "API-SUBSCRIBERSADDONS-400",
+                        "message": "Bad Request",
+                        "detailedMessage": "Invalid Request for operation.",
+                        "link": {
+                            "href": "https://api.claro.com.br/docs/error_codes.html",
+                            "rel": "related"
+                        }
+                    }
+                }
+            </Payload>
+            <StatusCode>400</StatusCode>
+            <ReasonPhrase>Bad Request</ReasonPhrase>
+        </Set>
+    </FaultResponse>    
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

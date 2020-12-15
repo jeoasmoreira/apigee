@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AM-RequestBuild_POST">
+    <DisplayName>AM-RequestBuild_POST</DisplayName>
+    <Add>
+        <Headers>
+            <Header name="Content-Type">application/soap+xml; charset=utf-8</Header>
+        </Headers>
+    </Add>
+    <Set>
+        <Payload contentType="application/soap+xml">
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                <soapenv:Header>
+                    <mtrace:meta-trace xmlns:mtrace="http://www.claro.com.br/EBO/Claro/v1">
+                        <mtrace:indicador-rastreabilidade>false</mtrace:indicador-rastreabilidade>
+                    </mtrace:meta-trace>
+                </soapenv:Header>
+                <soapenv:Body>
+                    <v1:AdicionarPacotesAssinanteRequest xmlns:v1="http://www.claro.com.br/EBS/Claro/v1" xmlns:v11="http://www.claro.com.br/EBO/Claro/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <v1:ordem-cliente>
+                            <v11:ordens-assinante>
+                                <v11:ordem-assinante>
+                                    <v11:assinante-atual>
+                                    <v11:tipo-servico>{field.param.serviceType}</v11:tipo-servico>
+
+                                    <v11:tipo-assinatura>{field.param.subscriptionType}</v11:tipo-assinatura>
+
+                                    <v11:numero-telefone>
+                                        <v11:numero-telefone>{field.param.msisdn}</v11:numero-telefone>
+                                    </v11:numero-telefone>
+                                    <v11:pacotes-servico>
+                                        <v11:pacote>
+                                            <v11:pacote-id>{field.param.addonId}</v11:pacote-id>
+                                            <v11:nome>{field.param.addonName}</v11:nome>
+                                            <v11:categoria-grupo-pacote>{field.param.addonGroupCategory}</v11:categoria-grupo-pacote>
+                                            <v11:data-termino-vigencia>{field.param.addonExpirationDate}</v11:data-termino-vigencia>
+                                            <v11:indicador-recorrente>{field.param.addonIsRecurrent}</v11:indicador-recorrente>
+                                        </v11:pacote>
+                                    </v11:pacotes-servico>
+                                    </v11:assinante-atual>
+                                </v11:ordem-assinante>
+                            </v11:ordens-assinante>
+                            <v11:canal-solicitacao>
+                                <v11:canal-venda-id>{field.param.channelId}</v11:canal-venda-id>
+                            </v11:canal-solicitacao>
+                            
+                            <v11:vendedor>
+                                <v11:codigo>{field.param.salesmanId}</v11:codigo>
+                                <v11:agente-venda>
+                                    <v11:codigo>{field.param.salesmanAgent}</v11:codigo>
+                                </v11:agente-venda>
+                            </v11:vendedor>
+
+                        </v1:ordem-cliente>
+                        <v1:registro-atendimento>
+                            <v11:protocolo-atendimento>
+                                <v11:numero-protocolo>{field.param.protocolNumber}</v11:numero-protocolo>
+                                <v11:protocolo-pai>
+                                    <v11:numero-protocolo>{field.param.parentProtocolNumber}</v11:numero-protocolo>
+                                </v11:protocolo-pai>
+                            </v11:protocolo-atendimento>
+                        </v1:registro-atendimento>
+                        <v1:meta-informacao>
+                            <v11:codigo-aplicacao-origem>{apiproduct.name}-[APIGEE]</v11:codigo-aplicacao-origem>
+                            <v11:codigo-operacao-origem>{request.verb} - {proxy.basepath}</v11:codigo-operacao-origem>
+                            <v11:correlacao-id-origem>{transactionId}</v11:correlacao-id-origem>
+                            <v11:endereco-aplicacao-origem>{proxy.client.ip}</v11:endereco-aplicacao-origem>
+                            <v11:usuario-id-origem>{proxy.client.ip}</v11:usuario-id-origem>
+                            <v11:data-hora-origem>{current.datetime}</v11:data-hora-origem>
+                            <v11:canal-id-origem>{apigee.developer.app.name}-[APIGEE]</v11:canal-id-origem>
+                        </v1:meta-informacao>
+                    </v1:AdicionarPacotesAssinanteRequest>
+                </soapenv:Body>
+            </soapenv:Envelope>
+        </Payload>
+        <Verb>POST</Verb>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

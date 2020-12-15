@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-405-MethodNotAllowedFault">
+    <DisplayName>RF-405-MethodNotAllowedFault</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json" variablePrefix="#" variableSuffix="%">
+                {
+                    "apiVersion": "#apiVersion%",
+                    "transactionId": "#transactionId%",
+                    "error": {
+                        "httpCode": "405",
+                        "errorCode": "API-SUBSCRIBERSADDONS-405",
+                        "message": "Method Not Allowed",
+                        "detailedMessage": "Unavailable HTTP method.",
+                        "link": {
+                            "href": "https://api.claro.com.br/docs/error_codes.html",
+                            "rel": "related"
+                        }
+                    }
+                }
+            </Payload>
+            <StatusCode>405</StatusCode>
+            <ReasonPhrase>Method Not Allowed</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

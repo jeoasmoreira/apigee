@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="1" name="mobile-subscribersaddons-v1">
+    <Basepaths>/mobile/v1/subscribers/addons</Basepaths>
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedBy>jeoas.moreira@tqi.com.br</CreatedBy>
+    <Description>Api Subscribersaddons</Description>
+    <DisplayName>mobile-subscribersaddons-v1</DisplayName>
+    <LastModifiedBy>jeoas.moreira@tqi.com.br</LastModifiedBy>
+    <Policies>
+        <Policy>AM-RequestBuild_POST</Policy>
+        <Policy>EV-ExtractRequestFields</Policy>
+        <Policy>FC-SF-BackendConfiguration-Basic-v1</Policy>
+        <Policy>J2X-JsonToXml</Policy>
+        <Policy>JS-SetFaultStatus</Policy>
+        <Policy>JS-ValidateRequestFields</Policy>
+        <Policy>RF-400-BadRequestFault</Policy>
+        <Policy>RF-404-ResourceNotFoundFault</Policy>
+        <Policy>RF-405-MethodNotAllowedFault</Policy>
+        <Policy>RF-406-NotAcceptableFault</Policy>
+        <Policy>RF-415-UnsupportedMediaTypeFault</Policy>
+        <Policy>X2J-XmlToJson</Policy>
+        <Policy>XL-BackendToResponse_POST</Policy>
+        <Policy>XL-CleanUpXML</Policy>
+        <Policy>XL-TransformToFault</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://JS-PrintRequestBackend.js</Resource>
+        <Resource>jsc://JS-SetFaultStatus.js</Resource>
+        <Resource>jsc://JS-ValidateRequestFields.js</Resource>
+        <Resource>jsc://JS-XQueryString.js</Resource>
+        <Resource>jsc://JS-VerifyToken.js</Resource>
+        <Resource>jsc://JS-VerifyResponseCallout.js</Resource>
+        <Resource>xsl://XL-BackendToResponse_POST.xsl</Resource>
+        <Resource>xsl://XL-CleanUpXML.xsl</Resource>
+        <Resource>xsl://XL-TransformToFault.xsl</Resource>
+    </Resources>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>target_POST</TargetEndpoint>
+    </TargetEndpoints>
+</APIProxy>

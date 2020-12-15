@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="target_POST">
+    <Description/>
+    <FaultRules/>
+    <DefaultFaultRule name="DefaultFaultRule">
+        <!-- TRATAMENTO DE ERRO DO RESPONSE -->
+        <Step>
+            <Name>JS-PrintRequestBackend</Name>
+        </Step>
+        <Step>
+            <Name>XL-TransformToFault</Name>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <!-- AUTENTICAÇÃO DO BACKEND -->
+        <Request>
+            <Step>
+                <Name>FC-SF-BackendConfiguration-Basic-v1</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>JS-PrintRequestBackend</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response>
+            <Step>
+                <Name>JS-PrintRequestBackend</Name>
+            </Step>
+        </Response>
+    </PostFlow>
+    <Flows/>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+            <Server name="TS-soaEsbMobile"/>
+        </LoadBalancer>
+        <Path>/esb/services/AdicionarPacotesAssinantev1</Path>
+        <Properties>
+            <Property name="supports.http11">true</Property>
+            <Property name="use.proxy">false</Property>
+            <Property name="success.codes">1xx,2xx,3xx,4xx,5xx</Property>
+        </Properties>
+    </HTTPTargetConnection>
+</TargetEndpoint>

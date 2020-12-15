@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <PreFlow name="PreFlow">
+        <Request>
+            <!-- VALIDAÇÃO GERAL DO REQUEST -->
+            <Step>
+                <Name>RF-405-MethodNotAllowedFault</Name>
+                <Condition>((request.verb != "POST") AND (request.verb != "OPTIONS"))</Condition>
+            </Step>
+            <Step>
+                <Name>RF-406-NotAcceptableFault</Name>
+                <Condition>((initial.accept != "application/xml") and (initial.accept != "text/xml")) and ((initial.accept != "application/json") and (initial.accept != "text/json"))</Condition>
+            </Step>
+            <Step>
+                <Name>JS-VerifyUrlPath</Name>
+            </Step>
+            <Step>
+                <Name>RF-404-ResourceNotFoundFault</Name>
+                <Condition>validUrlPath.fail == true</Condition>
+            </Step>
+            <!-- VALIDAÇÃO DAS VARIÁVEIS OBRIGATÓRIAS -->
+            <Step>
+                <Name>J2X-JsonToXml</Name>
+                <Condition>((initial.contentType == "application/json") or (initial.contentType == "text/json")) and (initial.verb = "POST")</Condition>
+            </Step>
+            <Step>
+                <Name>EV-ExtractRequestFields</Name>
+                <Condition>(request.content != null)</Condition>
+            </Step>
+            <Step>
+                <Name>JS-ValidateRequestFields</Name>
+                <Condition>(request.content != null)</Condition>
+            </Step>
+            <Step>
+                <Name>RF-400-BadRequestFault</Name>
+                <Condition>(validFieldRequest.fail == true)</Condition>
+            </Step>
+            <Step>
+                <Name>JS-VerifyToken</Name><!-- Depois ajustar aqui com calma -->
+                <Condition>(userAuth.Required equals true) and ((proxy.pathsuffix MatchesPath "" or proxy.pathsuffix MatchesPath "") and (initial.verb = "POST"))</Condition>
+            </Step>
+            <Step>
+                <Name>RF-403-RaiseAuthorizationFault</Name>
+                <Condition>JS-VerifyToken.failed = true</Condition>
+            </Step>
+        </Request>
+        <Response>
+            <!-- RESPONSE DO BACKEND -->
+            <Step>
+                <Name>XL-TransformToFault</Name>
+                <Condition>(message.content matches "*FAULT*") or (message.content matches "*Fault*") or (message.content matches "*fault"*) or (response.status.code != 200)</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SetFaultStatus</Name>
+                <Condition>(message.content matches "*xml*") and (message.content matches "*error*")</Condition>
+            </Step>
+        </Response>
+    </PreFlow>
+    <Flows>
+        <Flow name="POST">
+            <Description>Atualiza a janela de uma portabilidade a partir do bilhete da EA e a nova data.</Description>
+            <Condition>(proxy.pathsuffix MatchesPath "") and (initial.verb = "POST")</Condition><!-- Depois ajustar aqui com calma -->
+            <Request>
+                <!-- VALIDAÇÃO ESPECÍFICA DO REQUEST -->
+                <Step>
+                    <Name>RF-415-UnsupportedMediaTypeFault</Name>
+                    <Condition>((initial.contentType != "application/xml") and (initial.contentType != "text/xml") and (initial.contentType != "application/json") and (initial.contentType != "text/json"))</Condition>
+                </Step>
+                <!-- REQUEST PARA O BACKEND -->
+                <Step>
+                    <Name>AM-RequestBuild_POST</Name>
+                    <Condition>(request.content != null)</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <!-- RESPONSE DO BACKEND -->
+                <Step>
+                    <Name>XL-BackendToResponse_POST</Name><!-- precisa mudar aqui -->
+                    <Condition>(not(message.content matches "*FAULT*")) and (not(message.content matches "*Fault*")) and (not(message.content matches "*fault*")) and (not(message.content matches "*error*"))</Condition>
+                </Step>
+            </Response>
+        </Flow>
+        <Flow name="OPTIONS">
+            <Condition>(proxy.pathsuffix = "") and (initial.verb = "OPTIONS")</Condition>
+            <Request/>
+            <Response/>
+        </Flow>
+        <Flow name="Default">
+            <Description>Default flow</Description>
+            <Request>
+                <!-- RECURSO NÃO ENCONTRADO -->
+                <Step>
+                    <Name>RF-404-ResourceNotFoundFault</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request>
+            <!-- REQUEST PARA O BACKEND -->
+            <Step>
+                <Name>XL-CleanUpXML</Name>
+            </Step>
+            <Step>
+                <Name>JS-PrintRequestBackend</Name>
+            </Step>
+        </Request>
+        <Response>
+            <!-- RESPONSE DO BACKEND -->
+            <Step>
+                <Name>X2J-XmlToJson</Name>
+                <Condition>((initial.accept == "application/json") or (initial.accept == "text/json"))</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SetResponse</Name><!-- Analisar se haverá a necessidade de usar essa policy -->
+                <Condition>(initial.verb = "GET") and ((initial.accept == "application/json") or (initial.accept == "text/json"))</Condition>
+            </Step>
+            <Step>
+                <Name>JS-PrintRequestBackend</Name>
+            </Step>
+        </Response>
+    </PostFlow>
+    <HTTPProxyConnection>
+        <BasePath>/mobile/v1/subscribers/addons</BasePath>
+        <VirtualHost>default</VirtualHost>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="POST">
+        <TargetEndpoint>target_POST</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "") and (initial.verb = "POST")</Condition>
+    </RouteRule>
+    <RouteRule name="OPTIONS">
+        <Condition>(proxy.pathsuffix = "") and (initial.verb = "OPTIONS")</Condition>
+    </RouteRule>
+</ProxyEndpoint>

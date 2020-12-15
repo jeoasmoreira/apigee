@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-ExtractRequestFields">
+   <DisplayName>EV-ExtractRequestFields</DisplayName>
+
+   <Source clearPayload="false">request</Source>
+   <VariablePrefix>field.param</VariablePrefix>
+   <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+
+   <XMLPayload stopPayloadProcessing="false">
+
+      <Variable name="msisdn">
+         <XPath>//msisdn</XPath>
+      </Variable>
+
+      <Variable name="serviceType">
+         <XPath>//serviceType</XPath>
+      </Variable>
+
+      <Variable name="subscriptionType">
+         <XPath>//subscriptionType</XPath>
+      </Variable>
+
+      <Variable name="addonId">
+         <XPath>//addons/id</XPath>
+      </Variable>
+
+      <Variable name="addonName">
+         <XPath>//name</XPath>
+      </Variable>
+
+      <Variable name="addonGroupCategory">
+         <XPath>//groupCategory</XPath>
+      </Variable>
+
+      <Variable name="addonExpirationDate">
+         <XPath>//expirationDate</XPath>
+      </Variable>
+
+      <Variable name="addonIsRecurrent">
+         <XPath>//isRecurrent</XPath>
+      </Variable>
+
+      <Variable name="channelId">
+         <XPath>//channelId</XPath>
+      </Variable>
+
+      <Variable name="salesmanAgent">
+         <XPath>//salesman/salesAgent</XPath>
+      </Variable>
+
+      <Variable name="salesmanId">
+         <XPath>//salesman/id</XPath>
+      </Variable>
+
+      <Variable name="protocolNumber">
+         <XPath>//protocolNumber</XPath>
+      </Variable>
+
+      <Variable name="parentProtocolNumber">
+         <XPath>//parentProtocolNumber</XPath>
+      </Variable>
+   </XMLPayload>
+
+</ExtractVariables>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-403-RaiseAuthorizationFault">
+    <DisplayName>RF-403-RaiseAuthorizationFault</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json" variablePrefix="#" variableSuffix="%">
+                {
+                    "apiVersion": "#apiVersion%",
+                    "transactionId": "#transactionId%",
+                    "error": {
+                        "httpCode": "403",
+                        "errorCode": "API-SUBSCRIBERSADDONS-403",
+                        "message": "Forbidden",
+                        "detailedMessage": "Client authorization failed.",
+                        "link": {
+                        "rel": "related",
+                            "href": "https://api.claro.com.br/docs"
+                        }
+                    }
+                }
+            </Payload>
+            <StatusCode>403</StatusCode>
+            <ReasonPhrase>Access denied</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>
